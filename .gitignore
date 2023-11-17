@@ -1,0 +1,15 @@
+system_ext/priv-app/Settings/Settings.apk
+system_ext/apex/com.android.vndk.v30.apex
+.git/objects/pack/pack-de20297775866eba866dd0fa9696399fee780bf0.pack
+modem.img
+product/data-app/Opera/Opera.apk
+product/data-app/MIMediaEditorGlobal/MIMediaEditorGlobal.apk
+product/priv-app/MiuiCamera/MiuiCamera.apk
+product/priv-app/Messages/Messages.apk
+product/priv-app/ExtraPhotoGlobal/ExtraPhotoGlobal.apk
+product/priv-app/GmsCore/GmsCore.apk
+product/priv-app/MIBrowserGlobal_builtin_before_2021/MIBrowserGlobal_builtin_before_2021.apk
+product/priv-app/Velvet/Velvet.apk
+product/priv-app/Gallery_T_Global/Gallery_T_Global.apk
+product/app/TrichromeLibrary64/TrichromeLibrary64.apk
+boot.img
