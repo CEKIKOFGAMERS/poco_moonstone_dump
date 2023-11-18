@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2016 Qualcomm Technologies, Inc.
+All rights reserved.
+Confidential and Proprietary - Qualcomm Technologies, Inc.
+-->
+
+<!--
+   LogKit 3 Commands file
+-->
+
+<!--
+     Version must be in format [MAJOR].[MINOR] where MAJOR and MINOR
+     are integers. If client detects downgrade, prefs will revert to
+     default values as backwards compatibility is not supported.
+
+     Config and Command Versions are incremented along with client.
+     Name can be changed to differentiate configs for a given version.
+-->
+
+<LogKitCommands Name="Qualcomm Technologies, Inc. Phase 2" Version="0.9">
+   <!--                       Commands Table
+
+      Commands are uniquely identified by Name and referenced by UIElements
+
+      There are multiple types of commands:
+
+         HLOSCommand: any command issued by Android HLOS
+            Name: unique name used to identify command
+            Command: actual command to be called
+            Type: "streaming" or "oneshot"
+            Extension: log file extension (e.g. ".txt")
+
+         DiagSendCommand: diag command
+            Name: unique name used to identify command
+            Command: hex string to send.  E.g. "01ab02cd03ef05"
+
+         EnumeratedCommand: command enumerated, rather than syntax
+            Name: unique name used to identify command
+            Enum: valid values:
+               TCPDump_rmnet,  // "tcpdump -i rmnet0 -nnXSs 96 -w -"
+               TCPDump_wlan,   // "tcpdump -i wlan0 -nnXSs 96 -w -"
+               TCPDump_all,    // "tcpdump -i any -nnXSs 96 -w -"
+               Bluetooth,      // bt snoop logs
+
+         MonitorFileClose: Enable monitoring of a directory for file close
+         MonitorFileMoveTo: Enable monitoring of a directory for file being
+                            moved to.
+            Name:    unique name used to identify event monitor
+            Path:    path to directory to monitor
+            bDelete: (optional) delete the file after collecting (boolean)
+                     if not set, default to false
+
+            NOTE: The name 'SSRNotification' uses special handling, it should
+                  not be re-used at this time
+
+            Typically the MonitorFileClose should be used for detecting file
+            creation/modification of a file.
+
+         CrashCollection: When crash is detected, copy into a package
+
+            Name: unique name used to identify crash notification
+ 
+         FWRNotification: When FWR is detected, collect the corresponding log
+         DropboxNotification: When a dropbox entry is created with the provied
+                              tag, collect the corresponding log
+
+            Name: unique name used to identify each notification
+            Tag: name of tag to register for
+            Path: file to send upon notification
+   -->
+
+   <HLOSCommand
+      Name="logcat"
+      Command="logcat -v time"
+      Type="streaming"
+      Extension=".txt"/>
+   <HLOSCommand
+      Name="kmesg"
+      Command="logcat -v time -b kernel"
+      Type="streaming"
+      Extension=".txt"/>
+   <HLOSCommand
+      Name="bug_report"
+      Command="bugreport"
+      Type="oneshot"
+      Extension=".txt"/>
+   <HLOSCommand
+      Name="surface_flinger"
+      Command="dumpsys SurfaceFlinger"
+      Type="oneshot"
+      Extension=".txt"/>
+
+   <!-- HLOS oneshot commands -->
+   <HLOSCommand
+      Name="eHLOSCommand_CrashDumpSys"
+      Command="dumpsys"
+      Type="oneshot"
+      Extension=".txt"/>
+   <HLOSCommand
+      Name="eHLOSCommand_CatMemInfo"
+      Command="cat /proc/meminfo"
+      Type="oneshot"
+      Extension=".txt"/>
+   <HLOSCommand
+      Name="eHLOSCommand_ProcRank"
+      Command="procrank"
+      Type="oneshot"
+      Extension=".txt"/>
+   <HLOSCommand
+      Name="eHLOSCommand_DumpCamera"
+      Command="dumpsys media.camera"
+      Type="oneshot"
+      Extension=".txt"/>
+       
+   <!-- HLOS streaming commands -->
+   <HLOSCommand
+      Name="eHLOSCommand_ContLogcatRadio"
+      Command="logcat -v time -b radio"
+      Type="streaming"
+      Extension=".txt"/>
+   <HLOSCommand
+      Name="eHLOSCommand_ContLogcatEvents"
+      Command="logcat -v time -b events"
+      Type="streaming"
+      Extension=".txt"/>
+
+   <!-- Monitor File Events -->
+   <!-- Tombstone file copied when file closed. -->
+   <MonitorFileClose
+      Name="Tombstone"
+      Path="/data/tombstones/"/>
+   <!-- SSR file copied when file closed. -->
+   <MonitorFileClose
+      Name="SSRNotification"
+      Path="/data/ramdump/"/>
+
+   <!-- Monitor for FWR files -->
+   <FWRNotification Name="FWRNotification"/>
+   <!-- Collect crash files -->
+   <CrashCollection Name="CrashCollection"/>
+
+   <!-- Monitor for "Dropbox entry" files -->   
+   <DropboxNotification
+      Name="ANR-Data"
+      Tag="data_app_anr"
+      Path="/data/anr"/>
+      
+</LogKitCommands>

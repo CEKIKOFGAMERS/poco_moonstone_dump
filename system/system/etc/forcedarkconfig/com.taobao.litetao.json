@@ -1,0 +1,32 @@
+{
+  "packageName": "com.taobao.litetao",
+  "forceDark": true,
+  "mainRule": 1168,
+  "secondaryRule": 0,
+  "forceDarkActivityConfigList": [
+    {
+      "activityName": "com.taobao.ltao.maintab.MainFrameActivity",
+      "forceDark": true,
+      "forceDarkViewConfigList": [
+        {
+          "viewName": "com.taobao.uikit.extend.feature.view.TUrlImageView",
+          "forceDark": true,
+          "usage": 103,
+          "conditions": [
+            {
+              "viewName": "com.taobao.ltao.maintab.widget.BadgedLayout",
+              "parent": 0,
+              "index": -1
+            },
+            {
+              "viewName": "ndroid.widget.LinearLayout",
+              "parent": 1,
+              "index": -1,
+              "id": "ll_navigationbar"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
